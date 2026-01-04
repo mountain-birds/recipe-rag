@@ -3,33 +3,38 @@ package com.example.nutrition_chatbot_backend;
 // ChatController.java
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ai.chat.client.ChatClient;
 import java.util.Map;
-import com.google.genai.Client;
-import com.google.genai.types.GenerateContentResponse;
 
 @RestController
 public class ChatController {
+
+    private final ChatClient chatClient;
+
+    @Value("${GEMINI_API_KEY:}")
+    private String apiKey;
+
+    public ChatController(ChatClient.Builder chatClientBuilder) {
+        this.chatClient = chatClientBuilder.build();
+    }
 
     @PostMapping("/chat")
     public ResponseEntity<Map<String, String>> chat(@RequestBody Map<String, String> payload) {
         String userMessage = payload.get("message");
 
-        // TODO: Call your LLM API here
+        // Call the LLM API here
         String botReply = callLLM(userMessage);
 
         return ResponseEntity.ok(Map.of("reply", botReply));
     }
 
     private String callLLM(String message) {
-        @Value("${gemini.api-key}")
-        private String apiKey;
+        String response = chatClient.prompt()
+            .user(message)
+            .call()
+            .content();
 
-        GenerateContentResponse response =
-            client.models.generateContent(
-                "gemini-2.5-flash",
-                message,
-                null);
-
-            return response.text();
+        return response;
     }
 }
