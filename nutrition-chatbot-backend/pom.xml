@@ -40,6 +40,12 @@
 			<artifactId>spring-ai-starter-model-google-genai-embedding</artifactId>
 		</dependency>
 
+		<!-- Add Spring Web so the app runs as a web server and stays alive -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
