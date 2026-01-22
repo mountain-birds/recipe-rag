@@ -12,15 +12,13 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    @Value("${GEMINI_API_KEY:}")
-    private String apiKey;
-
     public ChatController(ChatClient.Builder chatClientBuilder) {
         this.chatClient = chatClientBuilder.build();
     }
 
     @PostMapping("/chat")
     public ResponseEntity<Map<String, String>> chat(@RequestBody Map<String, String> payload) {
+
         String userMessage = payload.get("message");
 
         // Call the LLM API here
