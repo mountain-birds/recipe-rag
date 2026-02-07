@@ -1,9 +1,8 @@
-package com.example.nutrition_chatbot_backend;
+package com.example.nutrition_chatbot_backend.controllers;
 
 // ChatController.java
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ai.chat.client.ChatClient;
 import java.util.Map;
 
